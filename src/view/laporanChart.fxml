@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="499.0" prefWidth="760.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
+<children><BarChart fx:id="barDataBaju" layoutX="130.0" layoutY="49.5">
+  <xAxis>
+    <CategoryAxis fx:id="caBulan" side="BOTTOM" />
+  </xAxis>
+  <yAxis>
+    <NumberAxis fx:id="naPoint" side="LEFT" />
+  </yAxis>
+</BarChart>
+</children></AnchorPane>

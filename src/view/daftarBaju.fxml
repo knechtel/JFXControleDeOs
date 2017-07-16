@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.daftarBajuController">
+<children><AnchorPane id="AnchorPane" fx:id="loadBaju" prefHeight="650.0" prefWidth="1000.0" style="-fx-background-color: white; -fx-background-image: url(&quot;/gambar/grid.jpg&quot;);" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+<children>
+<StackPane fx:id="tambahBaju" prefHeight="650.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+<children>
+<Group>
+<children><StackPane fx:id="loadStage" layoutX="347.0" layoutY="182.0" prefHeight="287.0" prefWidth="306.0" style="-fx-background-color: white; -fx-background-radius: 10; -fx-padding: 10; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);" AnchorPane.leftAnchor="358.0" /><Button layoutX="642.0" layoutY="173.0" mnemonicParsing="false" onAction="#btnClose" prefHeight="17.0" prefWidth="21.0" style="-fx-background-image: url(&quot;/gambar/closePage.png&quot;); -fx-background-size: 100% 100%;">
+<font>
+<Font size="8.0" />
+</font></Button>
+</children>
+</Group>
+</children>
+</StackPane><SplitPane dividerPositions="0.18454935622317598" focusTraversable="true" orientation="VERTICAL" prefHeight="633.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="17.0">
+  <items>
+    <AnchorPane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="124.0" prefWidth="998.0" style="-fx-background-image: url(&quot;/gambar/header.gif&quot;); -fx-background-size: 100% 100%;" SplitPane.resizableWithParent="false">
+<children><Label layoutX="30.0" layoutY="42.0" text="Example JavaFX" textFill="#046272">
+<font>
+<Font name="Gill Sans MT" size="40.0" />
+</font>
+<effect>
+<Reflection topOpacity="0.2" />
+</effect></Label>
+<HBox layoutX="803.0" layoutY="70.0" spacing="10.0" AnchorPane.bottomAnchor="26.0" AnchorPane.rightAnchor="130.0" AnchorPane.topAnchor="70.0">
+<children><Label layoutX="803.0" layoutY="70.0" text="Login By  :" AnchorPane.bottomAnchor="26.0" AnchorPane.rightAnchor="140.0" AnchorPane.topAnchor="70.0">
+<font>
+<Font size="14.0" />
+</font></Label><Label fx:id="lblAdmin" layoutX="872.0" layoutY="71.0" AnchorPane.bottomAnchor="26.0" AnchorPane.topAnchor="70.0">
+<font>
+<Font size="14.0" />
+</font></Label>
+</children>
+</HBox>
+</children></AnchorPane>
+    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="418.0" prefWidth="676.0">
+<children><AnchorPane fx:id="editBaju" layoutX="179.0" layoutY="63.0" prefHeight="316.0" prefWidth="336.0" /><SplitPane dividerPositions="0.23393574297188754" focusTraversable="true" layoutX="602.0" layoutY="48.0" prefHeight="525.0" prefWidth="998.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+  <items>
+    <AnchorPane maxWidth="-Infinity" minHeight="0.0" minWidth="-Infinity" prefHeight="160.0" prefWidth="230.0" style="-fx-background-color: white;" SplitPane.resizableWithParent="false">
+<children><Accordion prefHeight="305.0" prefWidth="230.0" AnchorPane.bottomAnchor="205.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+  <panes>
+    <TitledPane text="Menu">
+      <content>
+<StackPane>
+<children><ListView fx:id="listViewBaju" layoutX="-2.0" onMouseClicked="#klikListDaftar" prefHeight="190.0" prefWidth="236.0" AnchorPane.bottomAnchor="23.0" AnchorPane.topAnchor="5.0" StackPane.alignment="CENTER">
+<StackPane.margin>
+<Insets bottom="-11.0" left="-12.0" right="-11.0" top="-11.0" />
+</StackPane.margin></ListView>
+</children>
+</StackPane>
+      </content>
+    </TitledPane>
+    <TitledPane text="Transaksi">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+      </content>
+    </TitledPane>
+    <TitledPane text="Laporan">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+      </content>
+    </TitledPane>
+  </panes>
+</Accordion>
+</children></AnchorPane>
+<StackPane>
+<children><StackPane fx:id="daftarListMenu" opacity="0.0" prefHeight="150.0" prefWidth="200.0" />
+<StackPane fx:id="menuBaju" style="-fx-background-color: white;" StackPane.alignment="CENTER">
+<children>
+<Group layoutX="52.0" layoutY="67.0" StackPane.alignment="CENTER">
+<children><TableView fx:id="tableBaju" layoutX="32.0" layoutY="2.0" onMouseClicked="#klikBaju" prefHeight="324.0" prefWidth="666.0" stylesheets="file:/D:/javafx/daftarHargaBaju/src/css/baju.css">
+  <columns><TableColumn fx:id="colNo" minWidth="0.0" prefWidth="0.0" resizable="false" text="No" />
+    <TableColumn fx:id="colKode" prefWidth="73.0" resizable="false" text="Kode" />
+    <TableColumn fx:id="colNama" prefWidth="142.0" text="Nama Baju" /><TableColumn fx:id="colVendor" prefWidth="142.0" text="Vendor Baju" /><TableColumn fx:id="colHarga" prefWidth="138.0" text="Harga Baju" /><TableColumn fx:id="colTanggal" prefWidth="152.0" text="Tanggal" />
+  </columns>
+</TableView>
+<HBox layoutX="34.0" layoutY="346.0" spacing="10.0">
+<children><Button layoutX="34.0" layoutY="366.0" mnemonicParsing="false" onAction="#btnTambah" prefHeight="31.0" prefWidth="74.0" style="-fx-text-fill: white;" styleClass="custem-button-input" stylesheets="file:/D:/javafx/daftarHargaBaju/src/css/baju.css" text="Tambah">
+<font>
+<Font name="System Bold" size="12.0" />
+</font></Button><Button layoutX="149.0" layoutY="366.0" mnemonicParsing="false" onAction="#btnEdit" prefHeight="31.0" prefWidth="74.0" style="-fx-text-fill: white;" styleClass="custem-button-input" stylesheets="file:/D:/javafx/daftarHargaBaju/src/css/baju.css" text="Edit">
+<font>
+<Font name="System Bold" size="12.0" />
+</font></Button><Button mnemonicParsing="false" onAction="#btnBatal" prefHeight="31.0" prefWidth="74.0" style="-fx-text-fill: white;" styleClass="custem-button-input" stylesheets="file:/D:/javafx/daftarHargaBaju/src/css/baju.css" text="Refresh">
+<font>
+<Font name="System Bold" size="12.0" />
+</font></Button><Button layoutX="265.0" layoutY="366.0" mnemonicParsing="false" onAction="#btnHapus" prefHeight="31.0" prefWidth="74.0" style="-fx-text-fill: white;" styleClass="custem-button-input" stylesheets="file:/D:/javafx/daftarHargaBaju/src/css/baju.css" text="Hapus">
+<font>
+<Font name="System Bold" size="12.0" />
+</font></Button>
+</children>
+</HBox><TextField fx:id="txtCariBaju" layoutX="418.0" layoutY="349.0" onKeyReleased="#cariBaju" prefHeight="25.0" prefWidth="280.0" promptText="Pencarian" /><Region layoutX="34.0" layoutY="-14.0" prefHeight="16.0" prefWidth="677.0" /><Region layoutX="20.0" layoutY="2.0" prefHeight="386.0" prefWidth="12.0" />
+</children>
+<StackPane.margin>
+<Insets bottom="4.0" left="4.0" right="4.0" top="4.0" />
+</StackPane.margin>
+</Group>
+</children>
+</StackPane>
+</children>
+</StackPane>
+  </items>
+</SplitPane>
+</children></AnchorPane>
+  </items>
+</SplitPane>
+</children></AnchorPane><MenuBar prefHeight="25.0" prefWidth="1000.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+  <menus>
+    <Menu mnemonicParsing="false" text="File">
+      <items>
+        <MenuItem mnemonicParsing="false" text="Close" />
+      </items>
+    </Menu>
+    <Menu mnemonicParsing="false" text="Edit">
+      <items>
+        <MenuItem mnemonicParsing="false" text="Delete" />
+      </items>
+    </Menu>
+    <Menu mnemonicParsing="false" text="Help">
+      <items>
+        <MenuItem mnemonicParsing="false" text="About" />
+      </items>
+    </Menu>
+  </menus>
+<effect>
+<DropShadow />
+</effect>
+</MenuBar>
+</children>
+</AnchorPane>

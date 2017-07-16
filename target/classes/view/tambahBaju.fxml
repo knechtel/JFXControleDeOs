@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<StackPane fx:id="stackTambah" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.TambahBajuController">
+<children>
+<Group>
+<children><DatePicker fx:id="txtTanggalBaju" editable="false" layoutX="1.0" layoutY="164.0" onAction="#aksiTanggal" prefHeight="25.0" prefWidth="250.0" promptText="Tanggal" /><Label layoutX="2.0" layoutY="4.0" prefHeight="27.0" prefWidth="67.0" text="Kode Baju :" /><TextField fx:id="txtNamaBaju" layoutX="1.0" layoutY="43.0" prefHeight="25.0" prefWidth="250.0" promptText="Nama Baju" /><TextField fx:id="txtVendorBaju" layoutX="1.0" layoutY="83.0" prefHeight="25.0" prefWidth="250.0" promptText="Vendor Baju" /><TextField fx:id="txtHargaBaju" layoutX="1.0" layoutY="122.0" onKeyReleased="#aksiHargaBaju" prefHeight="25.0" prefWidth="250.0" promptText="Harga Baju" /><TextField fx:id="txtTanggalConvert" editable="false" layoutX="1.0" layoutY="164.0" prefHeight="25.0" prefWidth="223.0" promptText="tanggal" />
+<HBox fillHeight="false" layoutX="55.0" layoutY="214.0" prefHeight="34.0" prefWidth="190.0" spacing="10.0">
+<children><Button layoutX="61.0" layoutY="206.0" mnemonicParsing="false" onAction="#closeRefresh" prefHeight="25.0" prefWidth="96.0" styleClass="custem-button-input" stylesheets="@../css/baju.css" text="Close Refresh" textFill="WHITE">
+<font>
+<Font name="System Bold" size="12.0" />
+</font></Button><Button fx:id="simpan" layoutX="166.0" layoutY="206.0" mnemonicParsing="false" onAction="#btnSimpan" prefHeight="25.0" prefWidth="84.0" styleClass="custem-button-input" stylesheets="@../css/baju.css" text="Simpan" textFill="WHITE">
+<font>
+<Font name="System Bold" size="12.0" />
+</font></Button>
+</children>
+</HBox><Label fx:id="lblKodeBaju" layoutX="70.0" layoutY="4.0" prefHeight="30.0" prefWidth="117.0" textFill="#f50505">
+<font>
+<Font size="20.0" />
+</font></Label>
+</children>
+</Group>
+</children>
+</StackPane>
