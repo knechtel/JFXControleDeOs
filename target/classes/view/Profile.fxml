@@ -44,7 +44,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="Profile" minWidth="500.0" prefHeight="667.0" prefWidth="672.0" styleClass="background" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="demo.CadOsController">
+<AnchorPane id="Profile" minWidth="500.0" prefHeight="672.0" prefWidth="724.0" styleClass="background" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="demo.CadOsController">
   <children>
     <HBox id="HBox" alignment="CENTER" spacing="5.0" AnchorPane.bottomAnchor="102.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0">
       <children>
@@ -60,8 +60,8 @@
                <font>
         <Font size="20.0" fx:id="x1" />
                </font></Button>
-        <Button fx:id="save" defaultButton="true" font="$x1" maxHeight="2.147483647E9" onAction="#btnTambah" prefHeight="50.0" prefWidth="145.0" text="edit" HBox.hgrow="ALWAYS" />
-            <Button fx:id="save1" defaultButton="true" maxHeight="2.147483647E9" onAction="#btnTambah" prefHeight="50.0" prefWidth="174.0" text="Save">
+        <Button fx:id="save" defaultButton="true" font="$x1" maxHeight="2.147483647E9" onAction="#saveAct" prefHeight="50.0" prefWidth="145.0" text="edit" HBox.hgrow="ALWAYS" />
+            <Button fx:id="save1" defaultButton="true" maxHeight="2.147483647E9" onAction="#saveAct" prefHeight="50.0" prefWidth="174.0" text="Save">
                <font>
                   <Font size="20.0" fx:id="x11" />
                </font>
@@ -71,15 +71,15 @@
     <TableView fx:id="itemTbl" layoutX="97.0" layoutY="353.0" prefHeight="215.0" prefWidth="481.0">
       <columns>
         <TableColumn fx:id="itemIdCol" prefWidth="75.0" text="Item ID" />
-          <TableColumn fx:id="itemIdCol" prefWidth="75.0" text="Modelo" />
+          <TableColumn fx:id="itemId" prefWidth="75.0" text="Modelo" />
              <TableColumn fx:id="itemNameCol" prefWidth="75.0" text="nome" />
             <TableColumn fx:id="itemNameCol1" prefWidth="75.0" text="serial" />
             <TableColumn fx:id="itemNameCol11" prefWidth="75.0" text="Marca" />
       </columns>
      
-
-
-    </TableView>
+      
+      
+          </TableView>
     
  
 
@@ -107,6 +107,7 @@
       <TextField fx:id="textDataEntrada" editable="true" layoutX="225.0" layoutY="298.0" minWidth="102.0" prefHeight="27.0" prefWidth="102.0" />
       <Label layoutX="351.0" layoutY="303.0" text="Data saída" />
       <TextField fx:id="user21" editable="true" layoutX="435.0" layoutY="298.0" minWidth="102.0" prefHeight="27.0" prefWidth="102.0" />
+      <Button fx:id="actItem" layoutX="603.0" layoutY="538.0" mnemonicParsing="false" onAction="#actItem" text="novo aparelho" />
   </children>
   <stylesheets>
     <URL value="@Login.css" />

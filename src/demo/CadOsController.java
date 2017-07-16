@@ -3,6 +3,8 @@ package demo;
 
 import java.io.IOException;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -70,7 +72,9 @@ public class CadOsController extends AnchorPane implements Initializable {
 	@FXML
 	private Hyperlink logout;
 	@FXML
-	private Button save;
+	private Button saveButton;
+	@FXML
+	private Button actItem;
 
 	@FXML
 	private TextField textCPF;
@@ -98,21 +102,26 @@ public class CadOsController extends AnchorPane implements Initializable {
 	@FXML
 	TableColumn itemQtyCol;
 	@FXML
+	TableColumn itemId;
+	@FXML
 	TableColumn itemPriceCol;
 	@FXML
 	ListView<OrdemDeServico> listViewOs;
 
 	@FXML
 	TextField textDataEntrada;
-	
+
 	private OrdemDeServico os;
 	private Cliente cliente;
 
 	private boolean onNew = true;
 
+	List<Item> list = new ArrayList<Item>();
+
 	public class Item {
 		public SimpleLongProperty id = new SimpleLongProperty();
 		public SimpleStringProperty name = new SimpleStringProperty();
+		public SimpleStringProperty modelo = new SimpleStringProperty();
 
 		public Item() {
 
@@ -124,6 +133,10 @@ public class CadOsController extends AnchorPane implements Initializable {
 
 		public String getName() {
 			return name.get();
+		}
+
+		public String getModelo() {
+			return modelo.get();
 		}
 
 	}
@@ -142,13 +155,12 @@ public class CadOsController extends AnchorPane implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 
 		itemTbl.setEditable(true);
+		itemId.setEditable(true);
 		itemIdCol.setCellValueFactory(new PropertyValueFactory<Item, Long>("id"));
 
 		TableColumn<Cliente, Boolean> checkCol = new TableColumn<>("Check");
 		checkCol.setCellValueFactory(new PropertyValueFactory<Cliente, Boolean>("checkBoxValue"));
 		checkCol.setCellFactory(CheckBoxTableCell.forTableColumn(checkCol));
-
-		// data = FXCollections.observableArrayList();
 
 		ClienteJpaController service = new ClienteJpaController();
 		List<Item> list = new ArrayList<Item>();
@@ -157,6 +169,7 @@ public class CadOsController extends AnchorPane implements Initializable {
 			Item i = new Item();
 			i.name.set(c.getNome());
 			i.id.set(c.getId());
+			i.modelo.set("LCD1578");
 			list.add(i);
 		}
 		ObservableList<Item> oListStavaka = FXCollections.observableArrayList(list);
@@ -217,8 +230,7 @@ public class CadOsController extends AnchorPane implements Initializable {
 
 				OrdemDeServicoJpaController osJpa = new OrdemDeServicoJpaController();
 
-				System.out.println("os " + os.getId());
-
+				
 				cliente = os.getCliente();
 
 				if (cliente != null) {
@@ -243,10 +255,11 @@ public class CadOsController extends AnchorPane implements Initializable {
 
 					if (os.getCliente().getCelular() != null)
 						textCelular.setText(os.getCliente().getCelular());
-					if (os.getDataEntrada() != null)
-						textDataEntrada.setText(os.getDataEntrada().toString());
-				
-				}else{
+					if (os.getDataEntrada() != null){
+						DateFormat df =new SimpleDateFormat("dd/MM/YYYY");
+						textDataEntrada.setText(df.format(os.getDataEntrada()));
+					}
+				} else {
 					cleanFields();
 				}
 			}
@@ -259,6 +272,16 @@ public class CadOsController extends AnchorPane implements Initializable {
 			public void handle(CellEditEvent<Item, String> t) {
 
 				((Item) t.getTableView().getItems().get(t.getTablePosition().getRow())).name.set((t.getNewValue()));
+			}
+		});
+
+		itemId.setCellValueFactory(new PropertyValueFactory<Book, String>("modelo"));
+		itemId.setCellFactory(TextFieldTableCell.forTableColumn());
+		itemId.setOnEditCommit(new EventHandler<CellEditEvent<Item, String>>() {
+			@Override
+			public void handle(CellEditEvent<Item, String> t) {
+
+				((Item) t.getTableView().getItems().get(t.getTablePosition().getRow())).modelo.set((t.getNewValue()));
 			}
 		});
 
@@ -287,8 +310,8 @@ public class CadOsController extends AnchorPane implements Initializable {
 
 		animateMessage();
 	}
-	
-	public void cleanFields(){
+
+	public void cleanFields() {
 		onNew = true;
 		textClienteNome.setText("");
 		textEmail.setText("");
@@ -336,9 +359,23 @@ public class CadOsController extends AnchorPane implements Initializable {
 		// data.add(item);
 	}
 
+	@FXML
+	private void actItem(ActionEvent event) {
+		System.out.println("testando...");
+
+		Item i = new Item();
+		i.name.set("maiquel");
+		i.modelo.set("LCD4209");
+		i.id.set(5);
+		list.add(i);
+
+		ObservableList<Item> oListStavaka = FXCollections.observableArrayList(list);
+		itemTbl.setItems(oListStavaka);
+	}
+
 	@SuppressWarnings("deprecation")
 	@FXML
-	private void btnTambah(ActionEvent event) throws IOException {
+	private void saveAct(ActionEvent event) throws IOException {
 
 		System.out.println("testando...");
 
@@ -377,6 +414,7 @@ public class CadOsController extends AnchorPane implements Initializable {
 			if (os == null)
 				os = new OrdemDeServico();
 			os.setDataEntrada(new Date());
+			os.setCliente(cliente);
 			OrdemDeServicoJpaController osJpa = new OrdemDeServicoJpaController();
 			osJpa.create(os);
 
