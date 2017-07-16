@@ -154,6 +154,7 @@ public class CadOsController extends AnchorPane implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
+		System.out.println("teste");
 		itemTbl.setEditable(true);
 		itemId.setEditable(true);
 		itemIdCol.setCellValueFactory(new PropertyValueFactory<Item, Long>("id"));
