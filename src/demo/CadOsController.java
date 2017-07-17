@@ -16,6 +16,7 @@ import org.controlsfx.control.textfield.TextFields;
 import org.controlsfx.dialog.Dialogs;
 
 import application.Principal;
+import controllerJpa.AparelhoJpaController;
 import controllerJpa.ClienteJpaController;
 import controllerJpa.OrdemDeServicoJpaController;
 import javafx.animation.FadeTransition;
@@ -44,6 +45,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.WindowEvent;
 import javafx.util.Duration;
+import model.Aparelho;
 import model.Cliente;
 import model.OrdemDeServico;
 import model.User;
@@ -73,6 +75,9 @@ public class CadOsController extends AnchorPane implements Initializable {
 	private Hyperlink logout;
 	@FXML
 	private Button saveButton;
+	@FXML
+	private Button buttonSalvarAparelho;
+
 	@FXML
 	private Button actItem;
 
@@ -106,6 +111,11 @@ public class CadOsController extends AnchorPane implements Initializable {
 	@FXML
 	TableColumn itemPriceCol;
 	@FXML
+	TableColumn itemSerial;
+	@FXML
+	TableColumn itemMarca;
+
+	@FXML
 	ListView<OrdemDeServico> listViewOs;
 
 	@FXML
@@ -116,12 +126,16 @@ public class CadOsController extends AnchorPane implements Initializable {
 
 	private boolean onNew = true;
 
-	List<Item> list = new ArrayList<Item>();
+	private List<Item> list = new ArrayList<Item>();
+
+	private List<Aparelho> listAparelho = new ArrayList<Aparelho>();
 
 	public class Item {
 		public SimpleLongProperty id = new SimpleLongProperty();
 		public SimpleStringProperty name = new SimpleStringProperty();
 		public SimpleStringProperty modelo = new SimpleStringProperty();
+		public SimpleStringProperty serial = new SimpleStringProperty();
+		public SimpleStringProperty marca = new SimpleStringProperty();
 
 		public Item() {
 
@@ -139,6 +153,14 @@ public class CadOsController extends AnchorPane implements Initializable {
 			return modelo.get();
 		}
 
+		public String getSerial() {
+			return serial.get();
+		}
+
+		public String getMarca() {
+			return marca.get();
+		}
+
 	}
 
 	public void setApp(Principal application) {
@@ -154,7 +176,6 @@ public class CadOsController extends AnchorPane implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
-		System.out.println("teste");
 		itemTbl.setEditable(true);
 		itemId.setEditable(true);
 		itemIdCol.setCellValueFactory(new PropertyValueFactory<Item, Long>("id"));
@@ -163,18 +184,7 @@ public class CadOsController extends AnchorPane implements Initializable {
 		checkCol.setCellValueFactory(new PropertyValueFactory<Cliente, Boolean>("checkBoxValue"));
 		checkCol.setCellFactory(CheckBoxTableCell.forTableColumn(checkCol));
 
-		ClienteJpaController service = new ClienteJpaController();
-		List<Item> list = new ArrayList<Item>();
-		for (Cliente c : service.findAll()) {
-
-			Item i = new Item();
-			i.name.set(c.getNome());
-			i.id.set(c.getId());
-			i.modelo.set("LCD1578");
-			list.add(i);
-		}
-		ObservableList<Item> oListStavaka = FXCollections.observableArrayList(list);
-		itemTbl.setItems(oListStavaka);
+		AparelhoJpaController jpaAparelho = new AparelhoJpaController();
 
 		// clienteName.setCellValueFactory(new PropertyValueFactory<Cliente,
 		// String>("clienteName"));
@@ -231,7 +241,6 @@ public class CadOsController extends AnchorPane implements Initializable {
 
 				OrdemDeServicoJpaController osJpa = new OrdemDeServicoJpaController();
 
-				
 				cliente = os.getCliente();
 
 				if (cliente != null) {
@@ -256,9 +265,35 @@ public class CadOsController extends AnchorPane implements Initializable {
 
 					if (os.getCliente().getCelular() != null)
 						textCelular.setText(os.getCliente().getCelular());
-					if (os.getDataEntrada() != null){
-						DateFormat df =new SimpleDateFormat("dd/MM/YYYY");
+					if (os.getDataEntrada() != null) {
+						DateFormat df = new SimpleDateFormat("dd/MM/YYYY");
 						textDataEntrada.setText(df.format(os.getDataEntrada()));
+					}
+
+					if (os != null) {
+
+						if (os.getId() != null) {
+							OrdemDeServicoJpaController osJpaAparelho1 = new OrdemDeServicoJpaController();
+							os = osJpaAparelho1.findByAparelho(os.getId());
+							if (os.getListaAparelho() != null) {
+
+								if (os.getListaAparelho().size() != list.size())
+									for (Aparelho a : os.getListaAparelho()) {
+										Item i = new Item();
+
+										i.modelo.set(a.getModelo());
+										i.serial.set(a.getSerial());
+										i.id.set(a.getId());
+										i.marca.set(a.getMarca());
+										list.add(i);
+
+									}
+
+								ObservableList<Item> oListStavaka = FXCollections.observableArrayList(list);
+								itemTbl.setItems(oListStavaka);
+
+							}
+						}
 					}
 				} else {
 					cleanFields();
@@ -283,6 +318,26 @@ public class CadOsController extends AnchorPane implements Initializable {
 			public void handle(CellEditEvent<Item, String> t) {
 
 				((Item) t.getTableView().getItems().get(t.getTablePosition().getRow())).modelo.set((t.getNewValue()));
+			}
+		});
+
+		itemSerial.setCellValueFactory(new PropertyValueFactory<Book, String>("serial"));
+		itemSerial.setCellFactory(TextFieldTableCell.forTableColumn());
+		itemSerial.setOnEditCommit(new EventHandler<CellEditEvent<Item, String>>() {
+			@Override
+			public void handle(CellEditEvent<Item, String> t) {
+
+				((Item) t.getTableView().getItems().get(t.getTablePosition().getRow())).serial.set((t.getNewValue()));
+			}
+		});
+
+		itemMarca.setCellValueFactory(new PropertyValueFactory<Book, String>("marca"));
+		itemMarca.setCellFactory(TextFieldTableCell.forTableColumn());
+		itemMarca.setOnEditCommit(new EventHandler<CellEditEvent<Item, String>>() {
+			@Override
+			public void handle(CellEditEvent<Item, String> t) {
+
+				((Item) t.getTableView().getItems().get(t.getTablePosition().getRow())).marca.set((t.getNewValue()));
 			}
 		});
 
@@ -367,6 +422,8 @@ public class CadOsController extends AnchorPane implements Initializable {
 		Item i = new Item();
 		i.name.set("maiquel");
 		i.modelo.set("LCD4209");
+		i.serial.set("number2592929");
+		i.marca.set("LG");
 		i.id.set(5);
 		list.add(i);
 
@@ -439,6 +496,29 @@ public class CadOsController extends AnchorPane implements Initializable {
 			Dialogs.create().message("É necessário o preechimento ao menos do nome do cliente!").showInformation();
 
 		}
+
+	}
+
+	@FXML
+	public void saveAparelho(ActionEvent event) {
+		Aparelho a = new Aparelho();
+
+		a.setModelo(itemMarca.getText());
+
+		for (Item i : list) {
+			System.out.println(i.getModelo());
+
+			a.setModelo(i.getModelo());
+			a.setSerial(i.getSerial());
+			a.setMarca("Philips");
+			AparelhoJpaController ajpa = new AparelhoJpaController();
+			ajpa.create(a);
+			listAparelho.add(a);
+		}
+		os.setListaAparelho(listAparelho);
+		OrdemDeServicoJpaController osJpa = new OrdemDeServicoJpaController();
+		osJpa.edit(os);
+		System.out.println("salvar ..." + list.size());
 
 	}
 

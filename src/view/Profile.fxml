@@ -73,8 +73,8 @@
         <TableColumn fx:id="itemIdCol" prefWidth="75.0" text="Item ID" />
           <TableColumn fx:id="itemId" prefWidth="75.0" text="Modelo" />
              <TableColumn fx:id="itemNameCol" prefWidth="75.0" text="nome" />
-            <TableColumn fx:id="itemNameCol1" prefWidth="75.0" text="serial" />
-            <TableColumn fx:id="itemNameCol11" prefWidth="75.0" text="Marca" />
+            <TableColumn fx:id="itemSerial" prefWidth="75.0" text="serial" />
+            <TableColumn fx:id="itemMarca" prefWidth="75.0" text="Marca" />
       </columns>
      
       
@@ -107,7 +107,8 @@
       <TextField fx:id="textDataEntrada" editable="true" layoutX="225.0" layoutY="298.0" minWidth="102.0" prefHeight="27.0" prefWidth="102.0" />
       <Label layoutX="351.0" layoutY="303.0" text="Data saída" />
       <TextField fx:id="user21" editable="true" layoutX="435.0" layoutY="298.0" minWidth="102.0" prefHeight="27.0" prefWidth="102.0" />
-      <Button fx:id="actItem" layoutX="603.0" layoutY="538.0" mnemonicParsing="false" onAction="#actItem" text="novo aparelho" />
+      <Button fx:id="actItem" layoutX="603.0" layoutY="538.0" mnemonicParsing="false" onAction="#actItem" text="Novo aparelho" />
+      <Button fx:id="buttonSalvarAparelho" layoutX="603.0" layoutY="500.0" mnemonicParsing="false" onAction="#saveAparelho" prefHeight="27.0" prefWidth="102.0" text="Salvar" />
   </children>
   <stylesheets>
     <URL value="@Login.css" />

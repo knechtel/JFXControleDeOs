@@ -30,7 +30,9 @@ import javax.xml.bind.annotation.XmlType;
 @Entity
 @NamedQueries({
     @NamedQuery(name = "OrdemDeServico.findAll", query = "SELECT o FROM OrdemDeServico o")
-    ,@NamedQuery(name = "OrdemDeServico.findByCliente", query = "FROM  OrdemDeServico o  JOIN FETCH  o.cliente WHERE  o.id = :id ")})
+    ,@NamedQuery(name = "OrdemDeServico.findByCliente", query = "FROM  OrdemDeServico o  JOIN FETCH  o.cliente WHERE  o.id = :id "),
+    @NamedQuery(name = "OrdemDeServico.findByAparelho", query = "FROM OrdemDeServico o JOIN FETCH o.listaAparelho WHERE  o.id = :id  "),
+     })
 public class OrdemDeServico implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -67,8 +69,8 @@ public class OrdemDeServico implements Serializable {
 	}, inverseJoinColumns = {
 			@JoinColumn(name = "aparelho_id", referencedColumnName = "id") })
 	@ManyToMany(fetch = FetchType.LAZY)
-	@XmlElementWrapper(name = "Aparelhos")
-	@XmlElement(name = "Aparelho")
+
+	 @Column(name = "listaAparelho")
 	private List<Aparelho> listaAparelho;
 
 	public Integer getId() {

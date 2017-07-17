@@ -43,6 +43,9 @@ public class Aparelho implements Serializable{
 	@Column(name = "id")
     @XmlElement(name = "id", required = true)
 	private Integer id;
+	@XmlElement(name = "marca", required = true)
+	private String marca;
+	
 	@XmlElement(name = "modelo", required = true)
 	private String modelo;
 	@XmlElement(name = "serial", required = true)
@@ -91,6 +94,12 @@ public class Aparelho implements Serializable{
 	}
 	public void setSerial(String serial) {
 		this.serial = serial;
+	}
+	public String getMarca() {
+		return marca;
+	}
+	public void setMarca(String marca) {
+		this.marca = marca;
 	}
 
 }

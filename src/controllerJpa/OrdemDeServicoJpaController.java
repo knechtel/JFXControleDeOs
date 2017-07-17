@@ -33,6 +33,14 @@ public class OrdemDeServicoJpaController {
 			em.close();
 		}
 	}
+	public OrdemDeServico findByAparelho(Integer id) {
+		try {
+			return em.createNamedQuery("OrdemDeServico.findByAparelho",OrdemDeServico.class).setParameter("id", id).getSingleResult();
+					
+		} finally {
+			em.close();
+		}
+	}
 	public void create(OrdemDeServico os) {
 		em.getTransaction().begin();
 		em.persist(os);
@@ -50,11 +58,8 @@ public class OrdemDeServicoJpaController {
 	
 	public static void main(String[] args) {
 		OrdemDeServicoJpaController osJpa = new OrdemDeServicoJpaController();
-		OrdemDeServico os =osJpa.findAll().get(0);
-		OrdemDeServicoJpaController osJpa1 = new OrdemDeServicoJpaController();
-		os.setTotalOrcamento(10);
-		osJpa1.edit(os);
 		
+		System.out.println(osJpa.findAll().size());
 	}
 	
 	
