@@ -1,12 +1,10 @@
 package controllerJpa;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 
-import model.Aparelho;
-import model.Peca;
+import bean.Aparelho;
 
 public class AparelhoJpaController {
 	

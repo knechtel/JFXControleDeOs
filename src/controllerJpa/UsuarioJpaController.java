@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 
-import model.Usuario;
+import bean.Usuario;
 public class UsuarioJpaController {
 	private EntityManager em = null;
 

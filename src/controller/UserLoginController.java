@@ -26,8 +26,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import model.classBaju;
-import model.navigasi;
+
 
 /**
  * FXML Controller class
@@ -40,8 +39,7 @@ public class UserLoginController implements Initializable {
 	@FXML
 	private PasswordField txtPass;
 
-	navigasi nav = new navigasi();
-	classBaju thisBaju = new classBaju();
+	
 	Stage stage;
 
 	private Principal application;
@@ -72,7 +70,7 @@ public class UserLoginController implements Initializable {
 			final Node source = (Node) event.getSource();
 			final Stage stage = (Stage) source.getScene().getWindow();
 			stage.close();
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Profile.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/cadOs.fxml"));
 
 			Scene newScene = null;
 			try {
@@ -108,16 +106,7 @@ public class UserLoginController implements Initializable {
 
 	}
 
-	private Pane loadMainPane() throws IOException {
-		FXMLLoader loader = new FXMLLoader();
-		Pane mainPane = (Pane) loader.load(getClass().getResourceAsStream(nav.getDaftarBaju()));
-		daftarBajuController daftarBaju = loader.getController();
-		navigasi.setStageController(daftarBaju);
-		navigasi.loadStageDaftarListBaju(nav.getTextEditor());
-		navigasi.loadStageTambahBaju(nav.getTambahBaju());
-		return mainPane;
 
-	}
 
 	private Scene createScene(Pane mainPane) {
 		Scene scene = new Scene(mainPane);

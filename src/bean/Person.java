@@ -1,4 +1,4 @@
-package model;
+package bean;
 
 public class Person {
     private String name;

@@ -4,6 +4,7 @@ import java.io.InputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import bean.User;
 import demo.CadOsController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -15,7 +16,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import model.User;
 
 public class Principal extends Application {
 
@@ -51,8 +51,8 @@ public class Principal extends Application {
 
 	void gotoProfile() {
 		try {
-			CadOsController profile = (CadOsController) replaceSceneContent("/view/Profile.fxml");
-			profile.setApp(this);
+			CadOsController profile = (CadOsController) replaceSceneContent("/view/cadOs.fxml");
+		
 		} catch (Exception ex) {
 			Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
 		}

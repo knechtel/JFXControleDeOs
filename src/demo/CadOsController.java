@@ -2,6 +2,7 @@
 package demo;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -9,6 +10,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -16,11 +19,17 @@ import org.controlsfx.control.textfield.TextFields;
 import org.controlsfx.dialog.Dialogs;
 
 import application.Principal;
+import bean.Aparelho;
+import bean.Cliente;
+import bean.OrdemDeServico;
+import bean.User;
 import controllerJpa.AparelhoJpaController;
 import controllerJpa.ClienteJpaController;
 import controllerJpa.OrdemDeServicoJpaController;
 import javafx.animation.FadeTransition;
 import javafx.application.Platform;
+import javafx.beans.binding.BooleanExpression;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -28,12 +37,17 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.fxml.JavaFXBuilderFactory;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
@@ -43,12 +57,13 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
+import javafx.stage.Modality;
+import javafx.stage.Popup;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
 import javafx.util.Duration;
-import model.Aparelho;
-import model.Cliente;
-import model.OrdemDeServico;
-import model.User;
 
 /**
  * CadOs Controller.
@@ -77,7 +92,11 @@ public class CadOsController extends AnchorPane implements Initializable {
 	private Button saveButton;
 	@FXML
 	private Button buttonSalvarAparelho;
+	@FXML
+	private Button buttonSelect;
 
+	@FXML
+	private Button buttonCidade;
 	@FXML
 	private Button actItem;
 
@@ -105,7 +124,7 @@ public class CadOsController extends AnchorPane implements Initializable {
 	@FXML
 	TableColumn itemNameCol;
 	@FXML
-	TableColumn itemQtyCol;
+	TableColumn itemAparelhoPronto;
 	@FXML
 	TableColumn itemId;
 	@FXML
@@ -114,64 +133,28 @@ public class CadOsController extends AnchorPane implements Initializable {
 	TableColumn itemSerial;
 	@FXML
 	TableColumn itemMarca;
+	// @FXML
+	// TableColumn itemPronto;
+	
 
 	@FXML
 	ListView<OrdemDeServico> listViewOs;
 
 	@FXML
 	TextField textDataEntrada;
+	@FXML
+	private MenuItem menuCidade;
 
 	private OrdemDeServico os;
 	private Cliente cliente;
-
+	private Item item;
 	private boolean onNew = true;
 
 	private List<Item> list = new ArrayList<Item>();
 
 	private List<Aparelho> listAparelho = new ArrayList<Aparelho>();
 
-	public class Item {
-		public SimpleLongProperty id = new SimpleLongProperty();
-		public SimpleStringProperty name = new SimpleStringProperty();
-		public SimpleStringProperty modelo = new SimpleStringProperty();
-		public SimpleStringProperty serial = new SimpleStringProperty();
-		public SimpleStringProperty marca = new SimpleStringProperty();
-
-		public Item() {
-
-		}
-
-		public Long getId() {
-			return id.get();
-		}
-
-		public String getName() {
-			return name.get();
-		}
-
-		public String getModelo() {
-			return modelo.get();
-		}
-
-		public String getSerial() {
-			return serial.get();
-		}
-
-		public String getMarca() {
-			return marca.get();
-		}
-
-	}
-
-	public void setApp(Principal application) {
-
-		this.application = application;
-		User loggedUser = application.getLoggedUser();
-		textClienteNome.setText(loggedUser.getId());
-		textEmail.setText(loggedUser.getEmail());
-		subscribed.setSelected(loggedUser.isSubscribed());
-		success.setOpacity(0);
-	}
+	
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -279,13 +262,15 @@ public class CadOsController extends AnchorPane implements Initializable {
 
 								if (os.getListaAparelho().size() != list.size())
 									for (Aparelho a : os.getListaAparelho()) {
-										Item i = new Item();
+										 item = new Item();
 
-										i.modelo.set(a.getModelo());
-										i.serial.set(a.getSerial());
-										i.id.set(a.getId());
-										i.marca.set(a.getMarca());
-										list.add(i);
+										item.modelo.set(a.getModelo());
+										item.serial.set(a.getSerial());
+										item.id.set(a.getId());
+										item.marca.set(a.getMarca());
+										item.pronto.set(true);
+										item.autorizado.set(true);
+										list.add(item);
 
 									}
 
@@ -301,15 +286,11 @@ public class CadOsController extends AnchorPane implements Initializable {
 			}
 		});
 
-		itemNameCol.setCellValueFactory(new PropertyValueFactory<Book, String>("name"));
-		itemNameCol.setCellFactory(TextFieldTableCell.forTableColumn());
-		itemNameCol.setOnEditCommit(new EventHandler<CellEditEvent<Item, String>>() {
-			@Override
-			public void handle(CellEditEvent<Item, String> t) {
+		itemNameCol.setCellValueFactory(new PropertyValueFactory<Book, String>("Autorizado"));
 
-				((Item) t.getTableView().getItems().get(t.getTablePosition().getRow())).name.set((t.getNewValue()));
-			}
-		});
+		
+		itemNameCol.setCellValueFactory(c-> new SimpleBooleanProperty(item.autorizado.getValue()));
+		itemNameCol.setCellFactory(tc -> new CheckBoxTableCell<>());
 
 		itemId.setCellValueFactory(new PropertyValueFactory<Book, String>("modelo"));
 		itemId.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -340,6 +321,18 @@ public class CadOsController extends AnchorPane implements Initializable {
 				((Item) t.getTableView().getItems().get(t.getTablePosition().getRow())).marca.set((t.getNewValue()));
 			}
 		});
+
+		// ItemAparelho ia =new ItemAparelho();
+		// itemAparelhoPronto.setCellValueFactory(c -> new
+		// SimpleBooleanProperty(c.getValue().getIsDefault()));
+		itemAparelhoPronto.setCellFactory(tc -> new CheckBoxTableCell<>());
+
+	
+		
+		itemAparelhoPronto.setCellValueFactory(c-> new SimpleBooleanProperty(item.pronto.getValue()));
+		itemAparelhoPronto.setCellFactory(tc -> new CheckBoxTableCell<>());
+
+		textDataEntrada.setEditable(false);
 
 	}
 
@@ -500,6 +493,41 @@ public class CadOsController extends AnchorPane implements Initializable {
 	}
 
 	@FXML
+	public void doCidade(ActionEvent actionEvent) {
+		try {
+			Parent root;
+			Stage stage;
+			// CadCidadeController profile = (CadCidadeController)
+			// replaceSceneContent("/view/cadCidade.fxml");
+			stage = (Stage) buttonCidade.getScene().getWindow();
+			root = FXMLLoader.load(getClass().getResource("/view/cadCity.fxml"));
+			Scene s = new Scene(root);
+			stage.setScene(s);
+			stage.show();
+		} catch (Exception ex) {
+			Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		System.out.println("doCidade");
+	}
+
+	@FXML
+	public void doOs() {
+		try {
+			Parent root;
+			Stage stage;
+			// CadCidadeController profile = (CadCidadeController)
+			// replaceSceneContent("/view/cadCidade.fxml");
+			stage = (Stage) buttonCidade.getScene().getWindow();
+			root = FXMLLoader.load(getClass().getResource("/view/cadOs.fxml"));
+			Scene s = new Scene(root);
+			stage.setScene(s);
+			stage.show();
+		} catch (Exception ex) {
+			Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+		}
+	}
+
+	@FXML
 	public void saveAparelho(ActionEvent event) {
 		Aparelho a = new Aparelho();
 
@@ -519,6 +547,37 @@ public class CadOsController extends AnchorPane implements Initializable {
 		OrdemDeServicoJpaController osJpa = new OrdemDeServicoJpaController();
 		osJpa.edit(os);
 		System.out.println("salvar ..." + list.size());
+
+	}
+	
+	@FXML
+	public void getAct(ActionEvent event){
+		
+	//	System.out.println(itemTbl.getSelectionModel().getSelectedItem().id.get());
+		System.out.println("test");
+		System.out.println("mais um teste");
+		try {
+			   FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/aparelhoPop.fxml"));
+               Parent root1 = (Parent) fxmlLoader.load();
+               Stage stage = new Stage();
+               stage.initModality(Modality.APPLICATION_MODAL); 
+               stage.setScene(new Scene(root1));  
+               stage.showAndWait();
+			
+		} catch (Exception ex) {
+			Logger.getLogger(CadOsController.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		
+	}
+
+	public void start(Stage stage) throws Exception {
+		Parent root = FXMLLoader.load(getClass().getResource("/view/cadOs.fxml"));
+		Scene scene = new Scene(root);
+		stage.setScene(scene);
+		scene.setFill(new Color(0, 0, 0, 0));
+		stage.initStyle(StageStyle.TRANSPARENT);
+		stage.show();
+		stage.setResizable(false);
 
 	}
 

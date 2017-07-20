@@ -1,4 +1,4 @@
-package model;
+package bean;
 import javafx.beans.InvalidationListener;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;

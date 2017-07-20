@@ -4,9 +4,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 
-import model.Aparelho;
-import model.Cliente;
-import model.OrdemDeServico;
+import bean.Cliente;
 
 public class ClienteJpaController {
 

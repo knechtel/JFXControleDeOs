@@ -3,7 +3,7 @@ package controllerJpa;
 
 import javax.persistence.EntityManager;
 
-import model.Peca;
+import bean.Peca;
 public class PecaJpaController {
 
 	private EntityManager em = null;

@@ -4,9 +4,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 
-import org.jboss.jandex.Main;
-
-import model.OrdemDeServico;
+import bean.OrdemDeServico;
 
 public class OrdemDeServicoJpaController {
 	private EntityManager em = null;

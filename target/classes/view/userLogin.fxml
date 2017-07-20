@@ -25,16 +25,16 @@
 </font>
 <effect>
 <Reflection fraction="0.63" topOpacity="0.15" />
-</effect></Label><PasswordField fx:id="txtPass" layoutY="133.0" prefHeight="30.0" prefWidth="297.0" promptText="Password">
+</effect></Label><PasswordField fx:id="txtPass" layoutY="133.0" prefHeight="30.0" prefWidth="221.0" promptText="Password">
 <font>
 <Font size="14.0" />
-</font></PasswordField><TextField fx:id="txtUser" layoutY="89.0" prefHeight="30.0" prefWidth="297.0" promptText="Username">
+</font></PasswordField><TextField fx:id="txtUser" layoutY="89.0" prefHeight="30.0" prefWidth="221.0" promptText="Username">
 <font>
 <Font size="14.0" />
 </font></TextField>
 </children>
 </Pane>
-            <Button layoutX="238.0" layoutY="213.0" mnemonicParsing="false" onAction="#aksiLogin" prefHeight="25.0" prefWidth="94.0" styleClass="custem-button-input" stylesheets="@../css/baju.css" text="Login" textFill="WHITE">
+            <Button layoutX="35.0" layoutY="214.0" mnemonicParsing="false" onAction="#aksiLogin" prefHeight="25.0" prefWidth="94.0" styleClass="custem-button-input" stylesheets="@../css/baju.css" text="Login" textFill="WHITE">
 <font>
 <Font name="System Bold" size="14.0" />
 </font>

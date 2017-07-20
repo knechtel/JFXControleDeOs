@@ -4,8 +4,8 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 
+import bean.Cliente;
 import controllerJpa.EntityManagerFactory;
-import model.Cliente;
 
 
 public class BatchService {

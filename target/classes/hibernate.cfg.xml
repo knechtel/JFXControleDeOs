@@ -6,11 +6,12 @@
     <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
     <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/test</property>
     <property name="hibernate.connection.username">root</property>
-    		      
-		<mapping class="model.Aparelho"/>
-		<mapping class="model.Cliente"/>
-		<mapping class="model.Peca"/>
-		<mapping class="model.Usuario"/>
-		<mapping class="model.OrdemDeServico"/>
+    	
+    	<mapping class="bean.Cidade"/>	      
+		<mapping class="bean.Aparelho"/>
+		<mapping class="bean.Cliente"/>
+		<mapping class="bean.Peca"/>
+		<mapping class="bean.Usuario"/>
+		<mapping class="bean.OrdemDeServico"/>
   </session-factory>
 </hibernate-configuration>
