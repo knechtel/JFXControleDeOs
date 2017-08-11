@@ -64,6 +64,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
 import javafx.util.Duration;
+import util.Session;
 
 /**
  * CadOs Controller.
@@ -504,6 +505,8 @@ public class CadOsController extends AnchorPane implements Initializable {
 			Scene s = new Scene(root);
 			stage.setScene(s);
 			stage.show();
+			stage.centerOnScreen();
+			
 		} catch (Exception ex) {
 			Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
 		}
@@ -553,16 +556,19 @@ public class CadOsController extends AnchorPane implements Initializable {
 	@FXML
 	public void getAct(ActionEvent event){
 		
-	//	System.out.println(itemTbl.getSelectionModel().getSelectedItem().id.get());
+		System.out.println(itemTbl.getSelectionModel().getSelectedItem().id.get());
 		System.out.println("test");
 		System.out.println("mais um teste");
 		try {
+			AparelhoJpaController jpa = new AparelhoJpaController();
+			Session.setAparelho(jpa.findById((int)itemTbl.getSelectionModel().getSelectedItem().id.get()));
 			   FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/aparelhoPop.fxml"));
                Parent root1 = (Parent) fxmlLoader.load();
                Stage stage = new Stage();
                stage.initModality(Modality.APPLICATION_MODAL); 
                stage.setScene(new Scene(root1));  
                stage.showAndWait();
+               stage.initStyle(StageStyle.UNDECORATED);
 			
 		} catch (Exception ex) {
 			Logger.getLogger(CadOsController.class.getName()).log(Level.SEVERE, null, ex);

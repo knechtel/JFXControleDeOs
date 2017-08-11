@@ -1,0 +1,36 @@
+	if (newText.toCharArray().length == 1) {
+
+				textField.setText("0,0" + newText);
+				System.out.println("aqui");
+			}
+
+			if (newText.toCharArray().length == 5) {
+				char[] digi = newText.toCharArray();
+				char dAuxLast = digi[digi.length - 1];
+				char dAuxPenult = digi[digi.length - 2];
+				char dAuxAntepenult = digi[digi.length - 3];
+
+				if (dAuxAntepenult != ',') {
+
+					// System.out.println("===============");
+					System.out.println(digi[0] + dAuxAntepenult + "," + dAuxPenult + dAuxLast);
+
+					// textField.setText(digi[0]+dAuxAntepenult+"," + dAuxPenult
+					// + dAuxLast);
+				}
+
+				textField.setText("0," + dAuxPenult + dAuxLast);
+
+			}
+			if (oldText.toCharArray().length == 5) {
+				System.out.println("teste ");
+
+				char[] digi = oldText.toCharArray();
+				char dAuxLast = digi[digi.length - 1];
+				char dAuxPenult = digi[digi.length - 2];
+				char dAuxAntepenult = digi[digi.length - 3];
+				if (dAuxAntepenult != '0') {
+					textField.setText(digi[digi.length - 3] + "," + dAuxPenult + dAuxLast);
+				}
+
+			}

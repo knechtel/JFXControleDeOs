@@ -1,10 +1,14 @@
 package controllerJpa;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 
+import com.mysql.fabric.xmlrpc.base.Array;
+
 import bean.Aparelho;
+import bean.Peca;
 
 public class AparelhoJpaController {
 	
@@ -57,12 +61,12 @@ public class AparelhoJpaController {
 	
 	public static void main(String[] args) {
 		AparelhoJpaController apJpa1= new AparelhoJpaController();
-		Aparelho a = apJpa1.findById(29);
-		AparelhoJpaController apJpa= new AparelhoJpaController();
-		System.out.println(apJpa.findPecas(a).getListaPeca().size());
+		Aparelho a = apJpa1.findById(2);
+
+		AparelhoJpaController aJpa= new AparelhoJpaController();
 		
 
-		
+		System.out.println(aJpa.findPecas(a).getListaPeca());
 		
 		
 		

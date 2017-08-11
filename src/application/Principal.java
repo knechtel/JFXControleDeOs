@@ -50,12 +50,7 @@ public class Principal extends Application {
 	}
 
 	void gotoProfile() {
-		try {
-			CadOsController profile = (CadOsController) replaceSceneContent("/view/cadOs.fxml");
-		
-		} catch (Exception ex) {
-			Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
-		}
+	
 	}
 
 	private Initializable replaceSceneContent(String fxml) throws Exception {

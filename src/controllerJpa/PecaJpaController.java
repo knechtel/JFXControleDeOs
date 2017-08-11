@@ -3,6 +3,7 @@ package controllerJpa;
 
 import javax.persistence.EntityManager;
 
+
 import bean.Peca;
 public class PecaJpaController {
 
@@ -13,7 +14,7 @@ public class PecaJpaController {
 		em = ent.getEntityManager();
 	}
 
-	
+
 
 	public void create(Peca peca) {
 		em.getTransaction().begin();

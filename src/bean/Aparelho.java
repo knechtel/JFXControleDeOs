@@ -50,6 +50,9 @@ public class Aparelho implements Serializable{
 	private String modelo;
 	@XmlElement(name = "serial", required = true)
 	private String serial;
+	private boolean pronto;
+	private boolean autorizado;
+	private Double maoDeObra;
 	@XmlElementWrapper(name = "Pecas")
 	@XmlElement(name = "Peca")
 	@ManyToMany(fetch = FetchType.LAZY)
@@ -63,6 +66,8 @@ public class Aparelho implements Serializable{
 	 @XmlElement(name = "OrdemDeServico")
 	@ManyToMany(fetch = FetchType.LAZY)
 	private List<OrdemDeServico> listaOs;
+	
+	
 	
 	public List<OrdemDeServico> getListaOs() {
 		return listaOs;
@@ -100,6 +105,24 @@ public class Aparelho implements Serializable{
 	}
 	public void setMarca(String marca) {
 		this.marca = marca;
+	}
+	public boolean isPronto() {
+		return pronto;
+	}
+	public void setPronto(boolean pronto) {
+		this.pronto = pronto;
+	}
+	public boolean isAutorizado() {
+		return autorizado;
+	}
+	public void setAutorizado(boolean autorizado) {
+		this.autorizado = autorizado;
+	}
+	public Double getMaoDeObra() {
+		return maoDeObra;
+	}
+	public void setMaoDeObra(Double maoDeObra) {
+		this.maoDeObra = maoDeObra;
 	}
 
 }

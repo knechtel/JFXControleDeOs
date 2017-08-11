@@ -27,7 +27,6 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
-
 /**
  * FXML Controller class
  *
@@ -39,7 +38,6 @@ public class UserLoginController implements Initializable {
 	@FXML
 	private PasswordField txtPass;
 
-	
 	Stage stage;
 
 	private Principal application;
@@ -83,15 +81,16 @@ public class UserLoginController implements Initializable {
 
 			Stage inputStage = new Stage();
 			inputStage.setScene(newScene);
+
 			
-			     inputStage.show();
-			     
-			     inputStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-			          public void handle(WindowEvent we) {
-			              System.exit(0);
-			          }
-			      });     
-		
+
+			inputStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+				public void handle(WindowEvent we) {
+					System.exit(0);
+				}
+			});
+			inputStage.setResizable(false);
+			inputStage.show();
 			System.out.println("aquiiiiii..!!!");
 
 			System.out.println("mais uma vez");
@@ -105,8 +104,6 @@ public class UserLoginController implements Initializable {
 		}
 
 	}
-
-
 
 	private Scene createScene(Pane mainPane) {
 		Scene scene = new Scene(mainPane);

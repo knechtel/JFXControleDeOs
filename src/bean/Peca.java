@@ -24,6 +24,7 @@ import org.hibernate.annotations.Cascade;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(namespace = "http://mballem.com/")
 @Entity
+
 public class Peca implements Serializable{
 	
 	/**
@@ -70,5 +71,11 @@ public class Peca implements Serializable{
 	public void setListaAparelho(List<Aparelho> listaAparelho) {
 		this.listaAparelho = listaAparelho;
 	}
+	@Override
+	public String toString() {
+		return "" + id + "";
+	}
+	
+	
 
 }

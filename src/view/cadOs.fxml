@@ -48,6 +48,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+
 <AnchorPane id="Profile" fx:id="itemPronto" minWidth="500.0" prefHeight="672.0" prefWidth="724.0" styleClass="background" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="demo.CadOsController">
   <children>
     <HBox id="HBox" alignment="CENTER" spacing="5.0" AnchorPane.bottomAnchor="102.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0">
